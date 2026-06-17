@@ -410,13 +410,325 @@
     </div>
   </div>
 
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="stat"><div class="stat-num">50+</div><div class="stat-lbl">Happy Members</div></div>
-    <div class="stat"><div class="stat-num">₹Cr+</div><div class="stat-lbl">FM</div></div>
-    <div class="stat"><div class="stat-num">10+ Yrs</div><div class="stat-lbl">Experience</div></div>
-    <div class="stat"><div class="stat-num">90%</div><div class="stat-lbl">Satisfaction</div></div>
-  </div>
+
+
+
+<section class="hero-lead-section">
+    <div class="hero-container">
+
+        <!-- Left Side -->
+        <div class="hero-left">
+            <span class="hero-badge">Trusted Financial Partner</span>
+
+            <h1>Grow Your Money. Secure Your Future.</h1>
+
+            <p>
+                We help you with Savings Plans, Loans, Insurance, Fixed Deposits,
+                Gold Loans, and Mutual Funds — all under one roof.
+            </p>
+
+            <div class="hero-benefits">
+                <div>✔ Trusted financial guidance</div>
+                <div>✔ Easy process & quick support</div>
+                <div>✔ Zero hidden charges</div>
+                <div>✔ Updates over WhatsApp</div>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="hero-right">
+            <div class="lead-form-box" id="leadFormBox">
+                <h2>Get Free Financial Consultation</h2>
+                <p>Select your service and plan below.</p>
+
+                <form id="leadForm">
+                    <input type="text" id="name" placeholder="Your Name" required />
+
+                    <input type="tel" 
+                           id="phone" 
+                           placeholder="Mobile Number" 
+                           required 
+                           pattern="[0-9]{10}" />
+
+                    <select id="section" required>
+                        <option value="">Select Service</option>
+                    </select>
+
+                    <select id="subsection" required disabled>
+                        <option value="">Select Plan</option>
+                    </select>
+
+                    <button type="submit">
+                        Get Free Consultation
+                    </button>
+                </form>
+
+                <p id="responseMsg"></p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<style>
+.hero-lead-section {
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    padding: 80px 8%;
+    color: white;
+}
+
+.hero-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.hero-left {
+    flex: 1;
+    min-width: 300px;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: #f59e0b;
+    color: #111827;
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.hero-left h1 {
+    font-size: 48px;
+    margin: 20px 0;
+    line-height: 1.2;
+}
+
+.hero-left p {
+    font-size: 18px;
+    color: #dbeafe;
+    line-height: 1.6;
+}
+
+.hero-benefits {
+    margin-top: 25px;
+    display: grid;
+    gap: 12px;
+    font-size: 16px;
+}
+
+.hero-right {
+    flex: 1;
+    min-width: 320px;
+}
+
+.lead-form-box {
+    background: white;
+    color: black;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.25);
+}
+
+.lead-form-box h2 {
+    margin-bottom: 10px;
+    color: #0f172a;
+}
+
+.lead-form-box p {
+    margin-bottom: 20px;
+    color: #64748b;
+}
+
+.lead-form-box input,
+.lead-form-box select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 15px;
+    background: white;
+    color: #0f172a;
+    box-sizing: border-box;
+}
+
+.lead-form-box select:disabled {
+    background: #f1f5f9;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.lead-form-box button {
+    width: 100%;
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 17px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.lead-form-box button:hover {
+    background: #d97706;
+}
+
+#responseMsg {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media(max-width:768px) {
+    .hero-left h1 {
+        font-size: 34px;
+    }
+}
+</style>
+
+<script>
+(function () {
+    var SERVICES = [
+        {
+            key: "Insurance",
+            sub: [
+                "Motor Insurance",
+                "Life Insurance",
+                "Health Insurance",
+                "Business Insurance"
+            ]
+        },
+        {
+            key: "Mutual Funds",
+            sub: [
+                "SIP",
+                "Specialised Investment Fund",
+                "Alternate Investment Fund",
+                "Portfolio Management"
+            ]
+        },
+        {
+            key: "Bonds / Debt Funds",
+            sub: [
+                "Government Bonds",
+                "Gold Funds",
+                "Fixed Deposit"
+            ]
+        },
+        {
+            key: "Loans",
+            sub: [
+                "Personal Loan",
+                "Home Loan",
+                "Business Loan",
+                "Loan Against Mutual Fund"
+            ]
+        },
+        {
+            key: "Savings Plan",
+            sub: [
+                "Retirement Plan",
+                "Child Education Plan"
+            ]
+        }
+    ];
+
+    var sectionSelect = document.getElementById("section");
+    var subsectionSelect = document.getElementById("subsection");
+
+    // Fill services
+    SERVICES.forEach(function (service) {
+        var option = document.createElement("option");
+        option.value = service.key;
+        option.textContent = service.key;
+        sectionSelect.appendChild(option);
+    });
+
+    // Populate plans
+    function populateSubsection(sectionKey) {
+        subsectionSelect.innerHTML = "";
+
+        var selectedService = SERVICES.find(function (s) {
+            return s.key === sectionKey;
+        });
+
+        if (!selectedService) {
+            subsectionSelect.disabled = true;
+
+            var placeholder = document.createElement("option");
+            placeholder.value = "";
+            placeholder.textContent = "Select Plan";
+            subsectionSelect.appendChild(placeholder);
+            return;
+        }
+
+        subsectionSelect.disabled = false;
+
+        var firstOption = document.createElement("option");
+        firstOption.value = "";
+        firstOption.textContent = "Select Plan";
+        subsectionSelect.appendChild(firstOption);
+
+        selectedService.sub.forEach(function (plan) {
+            var option = document.createElement("option");
+            option.value = plan;
+            option.textContent = plan;
+            subsectionSelect.appendChild(option);
+        });
+    }
+
+    sectionSelect.addEventListener("change", function () {
+        populateSubsection(this.value);
+    });
+
+    // Form submission
+    document.getElementById("leadForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        var data = {
+            name: document.getElementById("name").value,
+            phone: document.getElementById("phone").value,
+            section: sectionSelect.value,
+            subsection: subsectionSelect.value
+        };
+
+        fetch("https://script.google.com/macros/s/AKfycbw5dX2z6bZD4Dz4p6OfghhmtMeeH6_yNOfP3Q2hmoXrdkjLtd3pA4xKDm9eOgXKesW2/exec", {
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        .then(function (res) {
+            return res.text();
+        })
+        .then(function () {
+            document.getElementById("responseMsg").innerHTML =
+                "✅ Details submitted successfully! Redirecting to WhatsApp...";
+
+            document.getElementById("leadForm").reset();
+            populateSubsection("");
+
+            setTimeout(function () {
+                window.open(
+                    "https://whatsapp.com/channel/0029VbCxzgn7z4kmKiq5MH2A",
+                    "_blank"
+                );
+            }, 2000);
+        })
+        .catch(function () {
+            document.getElementById("responseMsg").innerHTML =
+                "❌ Something went wrong. Please try again.";
+        });
+    });
+
+})();
+</script>
+
+
+
 
   <!-- ABOUT + CONTACT -->
   <div class="about-strip" id="about">
